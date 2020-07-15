@@ -48,6 +48,7 @@ def about():
 
 #Profile page
 @app.route('/profile')
+@is_logged_in
 def profile():
     name=session['username']
     cur=mydb.cursor()
@@ -56,7 +57,7 @@ def profile():
     
     return render_template('profile.html',name=name,info=information)
 
-#Fetch Profile
+#Fetch Profile on one screen
 @app.route('/fetch_profile')
 @is_logged_in
 def fetch_profile():
@@ -101,6 +102,21 @@ def article(id):
     article = cur.fetchall()
 
     return render_template('article.html', article=article)
+    cur.close()
+    
+#Fetching particular profile from dashboard
+@app.route('/fetch_profiles/<string:id>')
+@is_logged_in
+def fetch_profiles(id):
+    cur = mydb.cursor()
+    
+    # Get article
+    
+    result = cur.execute("SELECT * FROM directory WHERE id = %s", [id])
+
+    profile = cur.fetchall()
+
+    return render_template('profiles.html', profile=profile)
     cur.close()
     
 #Registration

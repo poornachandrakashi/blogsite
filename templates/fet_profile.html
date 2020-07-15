@@ -27,13 +27,15 @@
     <h2>Hello</h2>
     {% for profile in profiles %}
     <div class="column" style="width: 300px;">
-        <img src="static/images/profile/adi.jpg" class="card-img-top" alt="...">
+        <img src="static/images/profile/{{profile[4]}}.jpg" class="card-img-top" alt="...">
         <div class="card-body text-center">
             <a href="#">
                 <h5 class="card-title">{{profile[1]}}</h5>
             </a>
-            <p class="card-text">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
-            <a href="#" class="btn btn-primary">View Profile</a>
+            <div class="card-text">
+                <p>Hi Its for testing</p>
+            </div>
+            <a href="fetch_profiles/{{profile[0]}}" class="btn btn-primary">View Profile</a>
         </div>
     </div>
     {% endfor %}
