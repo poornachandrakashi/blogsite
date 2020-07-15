@@ -12,7 +12,10 @@
     <!-- {% include "includes/_navbar.html" %} -->
     <h1>Register</h1>
     <!-- {% from "includes/_formhelpers.html" import render_field %} -->
-    <form method="POST" action="" class="form-horizontal">
+    <form method="POST" action="" class="form-horizontal" enctype="multipart/form-data">
+        <div class="controls">
+            <input type="file" id="img" name="img" accept="image/*">
+        </div>
         <div class="controls">
             <input type="text" name="name" placeholder="Enter your name!!!">
         </div>

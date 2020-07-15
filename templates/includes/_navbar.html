@@ -10,19 +10,22 @@
                 <a class="nav-link" href="/">Home </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/articles">Articles</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/about">About</a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="/articles">Articles</a>
+            </li>
             {% if session.logged_in %}
             <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
+                <a class="nav-link" href="/profile">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/dashboard">Dashboard</a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+
             {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="/register">Register</a>

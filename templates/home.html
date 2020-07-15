@@ -33,10 +33,11 @@
                 <h2>Menu</h2>
                 <ul class="links">
                     <li><a href="/home">Home</a></li>
-                    <li><a href="/articles">Articles</a></li>
                     {% if session.logged_in %}
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
+                    <li><a href="/articles">Articles</a></li>
+                    <li><a href="/profile">Profile</a></li>
                     {% else %}
                     <li><a href="/register">Register</a></li>
                     <li><a href="/login">Login</a></li>

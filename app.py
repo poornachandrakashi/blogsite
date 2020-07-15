@@ -5,6 +5,8 @@ from wtforms import Form,StringField,TextAreaField,PasswordField,validators
 from passlib.hash import sha256_crypt
 import mysql.connector
 from functools import wraps
+import time
+import os
 
 app=Flask(__name__)
 
@@ -13,23 +15,62 @@ mydb=mysql.connector.connect(host='localhost',user="root",passwd="",database="bl
 
 #Initializing Mysql
 # mysql=MySQL(app)
-
+PROFILE_IMAGES_DIR = 'static/images/profile'
+ARTICLE_IMAGES_DIR = 'static/images/articles'
 
 # Articles=Articles()
 
+# Check if user logged in
+def is_logged_in(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorized, Please login', 'danger')
+            return redirect(url_for('login'))
+    return wrap
 
 #Homepage
 @app.route('/')
 def home():
     return render_template('home.html')
 
+# # Testing Site
+# @app.route('/test')
+# def testing():
+#     return render_template('fet_profile.html')
+
 #About Page
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+#Profile page
+@app.route('/profile')
+def profile():
+    name=session['username']
+    cur=mydb.cursor()
+    cur.execute("SELECT * FROM directory WHERE username = %s", [name])
+    information=cur.fetchall()
+    
+    return render_template('profile.html',name=name,info=information)
+
+#Fetch Profile
+@app.route('/fetch_profile')
+@is_logged_in
+def fetch_profile():
+    cur=mydb.cursor()
+    cur.execute('SELECT * FROM directory')
+    profiles=cur.fetchall()
+    
+    return render_template('fet_profile.html',profiles=profiles)  
+    cur.close()
+    
+
 #Articles fetch page    
 @app.route('/articles')
+@is_logged_in
 def articles():
     cur=mydb.cursor()
     #Get Articles
@@ -49,6 +90,7 @@ def articles():
     
 #Fetching particular article
 @app.route('/article/<string:id>')
+@is_logged_in
 def article(id):
     cur = mydb.cursor()
     
@@ -60,22 +102,14 @@ def article(id):
 
     return render_template('article.html', article=article)
     cur.close()
-# class RegisterForm(Form):
-#     name= StringField('Name', [validators.Length(min=1,max=50)])
-#     username=StringField('Username',[validators.Length(min=5,max=25)])
-#     email=StringField('Email',[validators.Length(min=6,max=50)])
-#     password=PasswordField('Password',[
-#         validators.DataRequired(),
-#         validators.EqualTo('confirm',message="Password do not match")
-#     ])
-#     confirm=PasswordField('Confirm Password')
-    
     
 #Registration
 @app.route('/register' ,methods=['GET','POST'])
 def register():
     # form=RegisterForm()
+    # profile = request.files['img']
     if request.method=='POST':
+        image = request.files['img']
         name=request.form.get('name')
         family=request.form.get('fname')
         email=request.form.get('email')
@@ -90,7 +124,9 @@ def register():
         children=request.form.get('children')
         phone=request.form.get('phone')
         address=request.form.get('address')
-        
+        filename = username + ".jpg"
+        filename = os.path.join('static/images/profile/',filename)
+        image.save(filename)
         # Creating Cursor
         cur=mydb.cursor()
         
@@ -102,16 +138,14 @@ def register():
         #close Connection
         cur.close()
         
-        flash("Your are not registered and can log in","success")
+        flash("Successfully registered","success")
         
         redirect('/index')
         # return form.email.data
-        return render_template('register.html')
-    return render_template('register.html')
+        return redirect('/login')
+    return render_template('registration.html')
 
-@app.route('/test')
-def test():
-    return render_template('register2.html')
+
 
 #Login page
 @app.route('/login',methods=['GET','POST'])
@@ -151,34 +185,31 @@ def login():
             app.logger.info("No User")
             flash("No user found")
             return render_template('login.html',error=error)
-    return render_template('login.html')
+    return render_template('logins.html')
 
 
 #Article validation
 class ArticleForm(Form):
-    title = StringField('title', [validators.Length(min=1, max=200)])
-    body = StringField('body', [validators.Length(min=30)])
+    title = StringField('title', [validators.Length(min=1, max=2000)])
+    body = TextAreaField('body', render_kw={'rows':20})
     
-# Check if user logged in
-def is_logged_in(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash('Unauthorized, Please login', 'danger')
-            return redirect(url_for('login'))
-    return wrap
-
-
-
 #Adding articles    
 @app.route('/add_article',methods=['POST','GET'])
+@is_logged_in
 def add_article():
-    # form=ArticleForm(request.form)
-    if request.method=='POST':
-        title=request.form.get('title')
-        body=request.form.get('body')
+    form=ArticleForm(request.form)
+    if request.method=='POST' and form.validate():
+        title = form.title.data
+        body = form.body.data
+        image = request.files['img']
+        # ts = time.gmtime()
+        name=session['username']
+        # uploadtime = time.strftime("%Y%m%d%H%M%S", ts)
+        filename = "image" + title + ".jpg"
+        filename = os.path.join('static/images/articles/',filename)
+    # app.logger.info("File to upload: ")
+    # app.logger.info(filename)
+        image.save(filename)
         
         #Create cursor
         cur=mydb.cursor()
@@ -194,11 +225,12 @@ def add_article():
         flash('Article Created','Success')
         
         return redirect('/dashboard')
-    return render_template('add_article.html')
+    return render_template('add_article.html',form=form)
 
 
 #Editing articles    
 @app.route('/edit_article/<string:id>',methods=['POST','GET'])
+@is_logged_in
 def edit_article(id):
     
     #Create Cursor
@@ -257,7 +289,7 @@ def dashboard():
     
     cur=mydb.cursor()
     #Get Articles
-    result= cur.execute('SELECT * FROM articles')
+    result= cur.execute('SELECT * FROM articles WHERE author="{}"'.format(session['username']))
     
     articles=cur.fetchall()
     # if result > 0:

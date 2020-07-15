@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>All Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+        }
+        /* Remove extra left and right margins, due to padding in columns */
+        
+        .row {
+            margin: 0 -5px;
+        }
+        /* Clear floats after the columns */
+    </style>
+</head>
+
+<body>
+
+    {% include "includes/_navbar.html" %}
+    <br>
+    <h2>Hello</h2>
+    {% for profile in profiles %}
+    <div class="column" style="width: 300px;">
+        <img src="static/images/profile/adi.jpg" class="card-img-top" alt="...">
+        <div class="card-body text-center">
+            <a href="#">
+                <h5 class="card-title">{{profile[1]}}</h5>
+            </a>
+            <p class="card-text">Alice is a freelance web designer and developer based in London. She is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
+            <a href="#" class="btn btn-primary">View Profile</a>
+        </div>
+    </div>
+    {% endfor %}
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- <script src="//cdn.ckeditor.com/4.14.1/basic/ckeditor.js"></script>
+    <script type="text/javascript">
+        CKEDITOR.replace('editor')
+    </script> -->
+</body>
+
+</html>
