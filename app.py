@@ -133,7 +133,7 @@ def register():
         password=request.form.get('password')
         dob=request.form.get('dob')
         gender=request.form.get('gender')
-        # profession=request.form.get('profession')
+        profession=request.form.get('profession')
         father=request.form.get('father')
         mother=request.form.get('mother')
         gotra=request.form.get('gotra')
