@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Voice of Gudigar's</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="static/assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="static/assets/css/noscript.css" /></noscript>
+</head>
+
+<body class="is-preload">
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <header id="header" class="alt">
+            <h1><a href="index.html">Gudigar</a></h1>
+            <nav>
+                <a href="#menu">Menu</a>
+            </nav>
+        </header>
+
+        <!-- Menu -->
+        <nav id="menu">
+            <div class="inner">
+                <h2>Menu</h2>
+                <ul class="links">
+                    <li><a href="/home">Home</a></li>
+                    <li><a href="/articles">Articles</a></li>
+                    {% if session.logged_in %}
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    {% else %}
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    {% endif %}
+                </ul>
+                <a href="#" class="close">Close</a>
+            </div>
+        </nav>
+
+        <!-- Banner -->
+        <section id="banner">
+            <div class="inner">
+                <div class="logo"><span class="icon fa-gem"></span></div>
+                <h2>GUDIGARA</h2>
+                <p>Community of Sandalwood carvers around the world.</p>
+            </div>
+            <h6 style="text-align: center;" class="text-light small font-weight-bold"><i class="fas fa-code"></i> with <i class="fas fa-heart"></i> by Poornachandra.kashi</h6>
+
+        </section>
+
+        <!-- Wrapper -->
+        <section id="wrapper">
+
+            <!-- One -->
+            <section id="one" class="wrapper spotlight style1">
+                <div class="inner">
+                    <a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+                    <div class="content">
+                        <h2 class="major">About</h2>
+                        <p>The world 'gudi' stands for temple in Kannada and 'gudigar' is temple artisan or craftsman. Earlier workers must have been employed by kings of Kannada dynasties in coastal regions and Goa. After mass conversions were undertaken
+                            by the Portuguese, they seem to have come down to Shimoga and Canara coast. They are versatile craftsmen. They carve, paint, sculpt and mould earth to prepare sandalwood idols. They work on pith garlands and coronets and prepare
+                            trinkets. Earlier many well-to-do Gudigars owned land and were agriculturists. Later some excelled in Sandalwood carving, ebony and ivory carving. With depletion of Sandalwood growth and diminishing forest wealth they took
+                            to wood carving. Ivory carving is totally banned in India, because of the harm caused to elephant tusks with that, the most ancient and precious art came to an end.</p>
+                        <a href="#" class="special">Learn more</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Two -->
+            <section id="two" class="wrapper alt spotlight style2">
+                <div class="inner">
+                    <a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+                    <div class="content">
+                        <h2 class="major">Sugandavani</h2>
+                        <p>VOICE OF GUDIGAR's</p>
+                        <a href="#" class="special">Learn more</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Three -->
+            <section id="three" class="wrapper spotlight style3">
+                <div class="inner">
+                    <a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+                    <div class="content">
+                        <h2 class="major">Sathyanarayana pooja Committee.</h2>
+                        <p>Annual pooja updates.</p>
+                        <a href="#" class="special">Learn more</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Four -->
+            <section id="four" class="wrapper alt style1">
+                <div class="inner">
+                    <h2 class="major">BLOG'S</h2>
+                    <p>This is the blog sections for writer's in the Community.</p>
+                    <section class="features">
+                        <article>
+                            <a href="#" class="image"><img src="static/images/pic04.jpg" alt="" /></a>
+                            <h3 class="major">Blog one</h3>
+                            <p>Will be updated.</p>
+                            <a href="#" class="special">Learn more</a>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="static/images/pic05.jpg" alt="" /></a>
+                            <h3 class="major">Blog two</h3>
+                            <p>Will be updated.</p>
+                            <a href="#" class="special">Learn more</a>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="static/images/pic06.jpg" alt="" /></a>
+                            <h3 class="major">Blog three</h3>
+                            <p>Will be updated.</p>
+                            <a href="#" class="special">Learn more</a>
+                        </article>
+                        <article>
+                            <a href="#" class="image"><img src="static/images/pic07.jpg" alt="" /></a>
+                            <h3 class="major">Blog 4</h3>
+                            <p>Will be updated.</p>
+                            <a href="#" class="special">Learn more</a>
+                        </article>
+                    </section>
+                    <ul class="actions">
+                        <li><a href="#" class="button">Browse All</a></li>
+                    </ul>
+                </div>
+            </section>
+
+        </section>
+
+        <!-- Footer -->
+        <section id="footer">
+            <div class="inner">
+                <h2 class="major">Get in touch</h2>
+                <p>Developed and maintained by Poornachandra Kashi.</p>
+                <form method="post" action="#">
+                    <div class="fields">
+                        <div class="field">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" />
+                        </div>
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" />
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea name="message" id="message" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Send Message" /></li>
+                    </ul>
+                </form>
+                <ul class="contact">
+                    <li class="icon solid fa-home">
+                        Sadvi.Ai<br /> #166,Tech city Layout,Doddathoguru<br /> Bangalore, Karnataka
+                    </li>
+                    <li class="icon solid fa-phone">(+91)8904700354</li>
+                    <li class="icon solid fa-envelope"><a href="#">poornachandra.kashi@gmail.com</a></li>
+                    <li class="icon brands fa-twitter"><a href="#">Twitter</a></li>
+                    <li class="icon brands fa-facebook-f"><a href="#">Facebook</a></li>
+                    <li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/in/poornachandra-kashi-a13529168/">Linkedin</a></li>
+                </ul>
+                <ul class="copyright">
+                    <li>&copy; All rights reserved.</li>
+                    <li>Design: <a href="https://poornachandrakashi.github.io">Poornachandra kashi</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="static/assets/js/jquery.scrollex.min.js"></script>
+    <script src="static/assets/js/browser.min.js"></script>
+    <script src="static/assets/js/breakpoints.min.js"></script>
+    <script src="static/assets/js/util.js"></script>
+    <script src="static/assets/js/main.js"></script>
+
+</body>
+
+</html>
