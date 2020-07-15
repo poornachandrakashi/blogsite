@@ -132,8 +132,8 @@ def register():
         username=request.form.get('username')
         password=request.form.get('password')
         dob=request.form.get('dob')
-        gender=request.form.get('gender')
-        profession=request.form.get('profession')
+        GENDER=request.form.get('gender')
+        PROFESSION=request.form.get('profession')
         father=request.form.get('father')
         mother=request.form.get('mother')
         gotra=request.form.get('gotra')
@@ -147,7 +147,7 @@ def register():
         # Creating Cursor
         cur=mydb.cursor()
         
-        cur.execute("INSERT INTO directory(name,family,email,username,password,dob,gender,father,mother,gotra,marraige,children,phone,address) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s )",(name,family,email,username,password,dob,gender,father,mother,gotra,marraige,children,phone,address))
+        cur.execute("INSERT INTO directory(name,family,email,username,password,dob,GENDER,PROFESSION,father,mother,gotra,marraige,children,phone,address) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s )",(name,family,email,username,password,dob,GENDER,PROFESSION,father,mother,gotra,marraige,children,phone,address))
         
         #Commit to db
         mydb.commit()

@@ -6,3 +6,72 @@ if data=="error":
     print("User Does not exist")
 else:
     print("User exist")
+
+
+
+from flask import Flask,render_template,request
+import mysql.connector
+import csv
+
+app=Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/form')
+def form():
+    return render_template('form.html')
+
+@app.route('/submit',methods=['POST'])
+def submit():
+    name=request.form['name']
+    fname=request.form['fname']
+    dob=request.form['dob']
+    gender=request.form['gender']
+    father=request.form['father']
+    mother=request.form['mother']
+    gotra=request.form['gotra']
+    marriage=request.form['marriage']
+    children=request.form['children']
+    phone=request.form['phone']
+    email=request.form['email']
+    address=request.form['address']
+
+
+    mydb = mysql.connector.connect(
+      host="Gudigara.mysql.pythonanywhere-services.com",
+      user="Gudigara",
+      passwd="Kashi@1999",
+      database ='Gudigara$default'
+    )
+
+    mycursor = mydb.cursor()
+
+    sql = "INSERT INTO user VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    mycursor.execute(sql, (name,fname,dob,gender,father,mother,gotra,marriage,children,phone,email,address))
+    mydb.commit()
+
+    return "value_updated"
+
+
+@app.route('/fetch')
+def fetch():
+    mydb = mysql.connector.connect(
+        host="Gudigara.mysql.pythonanywhere-services.com",
+        user="Gudigara",
+        passwd="Kashi@1999",
+        database ='Gudigara$default'
+      )
+
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM user")
+    myresult = mycursor.fetchall()
+
+
+    c = csv.writer(open('user_data.csv', 'w',encoding='utf-8'))
+    c.writerow(('Name','Fname','DOB','Gender','Father','Mother','Gotra','Marriage','Children','Phone','Email','Address'))
+    for x in myresult:
+        c.writerow(x)
+
+    return "csv_created buddy"
